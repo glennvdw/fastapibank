@@ -1,0 +1,9 @@
+services:
+  accounts_service:
+    build: ./accounts_service
+    ports:
+      - "8001:8001"
+  transactions_service:
+    build: ./transactions_service
+    ports:
+      - "8002:8002"
