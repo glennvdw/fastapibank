@@ -17,3 +17,8 @@ class ICustomersRepository(ABC):
     def exists(self, customer_id: str) -> bool:
         """Check if a Customer exists."""
         pass
+
+    @abstractmethod
+    def all(self) -> List[Customer]:
+        """Retrieve an Customer by its ID."""
+        pass
