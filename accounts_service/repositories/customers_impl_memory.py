@@ -15,3 +15,6 @@ class InMemoryCustomersRepository(ICustomersRepository):
     
     def exists(self, customer_id: str) -> bool:
         return customer_id in self._store
+    
+    def all(self):
+        return list(self._store.values())

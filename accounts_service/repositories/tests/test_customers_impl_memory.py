@@ -41,3 +41,20 @@ def test_find_missing(repo):
 
     # assert
     assert found_cus is None
+
+def test_all(repo):
+    # prepare
+    account = Account(
+        id="test-acc-id", 
+        customer_id="customer-123", 
+        balance=100.0, 
+        name="test-acc"
+    )
+    repo._store[account.id] = account
+
+    # act
+    items = repo.all()
+
+    # assert
+    assert len(items) == 1
+    assert items[0].id == "test-acc-id"
