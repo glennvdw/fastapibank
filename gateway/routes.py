@@ -8,18 +8,20 @@ from schema import *
 accounts_router = APIRouter()
 transactions_router = APIRouter()
 
-ACCOUNTS_SERVICE_URL = getenv("ACCOUNTS_SERVICE_URL", "http://localhost:8001")
-TRANSACTIONS_SERVICE_URL = getenv("TRANSACTIONS_SERVICE_URL", "http://localhost:8002")
+ACCOUNTS_SERVICE_URL = getenv("ACCOUNTS_SERVICE_URL", "http://0.0.0.0:8001")
+TRANSACTIONS_SERVICE_URL = getenv("TRANSACTIONS_SERVICE_URL", "http://0.0.0.0:8002")
 
 
-# @router.post("/", response_model=AccountResponse)
-# def create_account():
-#     try:
-#         account = accounts_service.create_account(payload)
-#     except CustomerNotFound:
-#         raise HTTPException(status_code=422, detail="Unknown customer id")
-
-#     return account
+@accounts_router.post("/", response_model=AccountResponse)
+def create_account(
+    payload: CreateAccountRequest,
+    ):
+    try:
+        resp = requests.post(f"{ACCOUNTS_SERVICE_URL}/accounts", json=payload.dict())
+        resp.raise_for_status()
+        return resp.json()
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=502, detail=str(e))
 
 
 @accounts_router.get("/", response_model=List[AccountResponse])
