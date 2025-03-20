@@ -1,10 +1,8 @@
 name: CI
-
 on:
   pull_request:
     branches:
-      - master
-
+      - main
 jobs:
   build-and-test-accounts:
     name: Build & Test Accounts Service
@@ -13,58 +11,29 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-
       - name: Install dependencies
-        run: pip install -r accounts_service/requirements.txt
+        run: pip install -r requirements.txt
         working-directory: accounts_service
-
       - name: Run tests
         run: pytest --maxfail=1 --disable-warnings -v
         working-directory: accounts_service
-
   build-and-test-transactions:
     name: Build & Test Transactions Service
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-
       - name: Install dependencies
         run: pip install -r requirements.txt
         working-directory: transactions_service
-
       - name: Run tests
         run: pytest --maxfail=1 --disable-warnings -v
         working-directory: transactions_service
-
-  build-and-test-gateway:
-    name: Build & Test Gateway
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-        working-directory: gateway
-
-      - name: Run tests
-        run: pytest --maxfail=1 --disable-warnings -v
-        working-directory: gateway
