@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, List
 from models import Customer
 
 class ICustomersRepository(ABC):
