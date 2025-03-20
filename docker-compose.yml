@@ -7,3 +7,12 @@ services:
     build: ./transactions_service
     ports:
       - "8002:8002"
+    environment:
+      ACCOUNTS_SERVICE_URL: "http://accounts_service:8001"
+  gateway:
+    build: ./gateway
+    ports:
+      - "8000:8000"
+    environment:
+      ACCOUNTS_SERVICE_URL: "http://accounts_service:8001"
+      TRANSACTIONS_SERVICE_URL: "http://transactions_service:8002"
