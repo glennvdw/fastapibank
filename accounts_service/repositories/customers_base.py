@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, List
 from models import Customer
 
 class ICustomersRepository(ABC):
@@ -16,4 +16,9 @@ class ICustomersRepository(ABC):
     @abstractmethod
     def exists(self, customer_id: str) -> bool:
         """Check if a Customer exists."""
+        pass
+
+    @abstractmethod
+    def all(self) -> List[Customer]:
+        """Retrieve an Customer by its ID."""
         pass
